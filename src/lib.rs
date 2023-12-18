@@ -76,6 +76,7 @@ impl AddAssign<IVec2> for IVec2 {
     }
 }
 
+#[macro_export]
 macro_rules! ivec {
     ($a: expr, $b: expr) => {
         IVec2::new($a, $b)
