@@ -49,6 +49,9 @@ pub struct Tile<T> {
 }
 
 impl<T> Tile<T> {
+    pub fn new(pos: IVec2, contents: T) -> Tile<T> {
+        return Self { pos, contents };
+    }
     pub fn contents(&self) -> &T {
         return &self.contents;
     }
