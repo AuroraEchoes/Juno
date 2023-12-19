@@ -4,7 +4,7 @@ use crate::vector::{IVec2, Vector};
 
 pub struct Grid<T> {
     size: IVec2,
-    grid: Vec<Tile<T>>,
+    grid: Vec<GridItem<T>>,
 }
 
 impl<T> Grid<T> {
@@ -13,7 +13,7 @@ impl<T> Grid<T> {
         return Self { size, grid };
     }
 
-    pub fn push(&mut self, tile: Tile<T>) {
+    pub fn push(&mut self, tile: GridItem<T>) {
         self.grid.push(tile);
     }
 
@@ -29,27 +29,27 @@ impl<T> Grid<T> {
         return &self.size;
     }
 
-    pub fn tile(&self, pos: IVec2) -> Option<&Tile<T>> {
+    pub fn tile(&self, pos: IVec2) -> Option<&GridItem<T>> {
         return self.grid.get((pos.y() * self.width() + pos.x()) as usize);
     }
 
-    pub fn tile_mut(&mut self, pos: IVec2) -> Option<&mut Tile<T>> {
+    pub fn tile_mut(&mut self, pos: IVec2) -> Option<&mut GridItem<T>> {
         let w = *self.width();
         return self.grid.get_mut((pos.y() * w + pos.x()) as usize);
     }
 
-    pub fn tiles(&self) -> Iter<'_, Tile<T>> {
+    pub fn tiles(&self) -> Iter<'_, GridItem<T>> {
         return self.grid.iter();
     }
 }
 
-pub struct Tile<T> {
+pub struct GridItem<T> {
     pos: IVec2,
     contents: T,
 }
 
-impl<T> Tile<T> {
-    pub fn new(pos: IVec2, contents: T) -> Tile<T> {
+impl<T> GridItem<T> {
+    pub fn new(pos: IVec2, contents: T) -> GridItem<T> {
         return Self { pos, contents };
     }
     pub fn contents(&self) -> &T {
