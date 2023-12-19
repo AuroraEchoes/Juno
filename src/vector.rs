@@ -14,7 +14,7 @@ pub trait Vector {
     fn in_bounds(&self, min: &Self, max: &Self) -> bool;
 }
 
-#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub struct IVec2 {
     x: i32,
     y: i32,

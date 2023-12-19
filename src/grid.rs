@@ -43,6 +43,7 @@ impl<T> Grid<T> {
     }
 }
 
+#[derive(Clone, Debug)]
 pub struct GridItem<T> {
     pos: IVec2,
     contents: T,
