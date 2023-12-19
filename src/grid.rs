@@ -29,11 +29,11 @@ impl<T> Grid<T> {
         return &self.size;
     }
 
-    pub fn tile(&self, pos: IVec2) -> Option<&GridItem<T>> {
+    pub fn tile(&self, pos: &IVec2) -> Option<&GridItem<T>> {
         return self.grid.get((pos.y() * self.width() + pos.x()) as usize);
     }
 
-    pub fn tile_mut(&mut self, pos: IVec2) -> Option<&mut GridItem<T>> {
+    pub fn tile_mut(&mut self, pos: &IVec2) -> Option<&mut GridItem<T>> {
         let w = *self.width();
         return self.grid.get_mut((pos.y() * w + pos.x()) as usize);
     }
