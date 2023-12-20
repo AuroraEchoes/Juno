@@ -57,32 +57,12 @@ impl<T: Clone> Grid<T> {
         return self.grid.iter_mut();
     }
 
-    pub fn adjacent<'a>(&'a self) -> impl Iterator<Item = &'a GridItem<T>> {
-        let adjacent_positions = [ivec!(1, 0), ivec!(0, -1), ivec!(-1, 0), ivec!(0, 1)];
-        return self
-            .tiles()
-            .filter(move |t| adjacent_positions.contains(t.pos()))
-            .into_iter();
-    }
-
-    pub fn adjacent_mut<'a>(&'a mut self) -> impl Iterator<Item = &'a mut GridItem<T>> {
-        let adjacent_positions = [ivec!(1, 0), ivec!(0, -1), ivec!(-1, 0), ivec!(0, 1)];
-        return self
-            .tiles_mut()
-            .filter(move |t| adjacent_positions.contains(t.pos()))
-            .into_iter();
-    }
-
-    pub fn adjacent_diagonal<'a>(&'a self) -> impl Iterator<Item = &'a GridItem<T>> {
+    pub fn adjacent<'a>(&'a self, pos: &IVec2) -> impl Iterator<Item = &'a GridItem<T>> {
         let adjacent_positions = [
-            ivec!(1, 0),
-            ivec!(1, -1),
-            ivec!(0, -1),
-            ivec!(-1, 1),
-            ivec!(-1, 0),
-            ivec!(-1, 1),
-            ivec!(0, 1),
-            ivec!(1, 1),
+            ivec!(1, 0) + pos,
+            ivec!(0, -1) + pos,
+            ivec!(-1, 0) + pos,
+            ivec!(0, 1) + pos,
         ];
         return self
             .tiles()
@@ -90,16 +70,52 @@ impl<T: Clone> Grid<T> {
             .into_iter();
     }
 
-    pub fn adjacent_diagonal_mut<'a>(&'a mut self) -> impl Iterator<Item = &'a mut GridItem<T>> {
+    pub fn adjacent_mut<'a>(
+        &'a mut self,
+        pos: &IVec2,
+    ) -> impl Iterator<Item = &'a mut GridItem<T>> {
         let adjacent_positions = [
-            ivec!(1, 0),
-            ivec!(1, -1),
-            ivec!(0, -1),
-            ivec!(-1, 1),
-            ivec!(-1, 0),
-            ivec!(-1, 1),
-            ivec!(0, 1),
-            ivec!(1, 1),
+            ivec!(1, 0) + pos,
+            ivec!(0, -1) + pos,
+            ivec!(-1, 0) + pos,
+            ivec!(0, 1) + pos,
+        ];
+        return self
+            .tiles_mut()
+            .filter(move |t| adjacent_positions.contains(t.pos()))
+            .into_iter();
+    }
+
+    pub fn adjacent_diagonal<'a>(&'a self, pos: &IVec2) -> impl Iterator<Item = &'a GridItem<T>> {
+        let adjacent_positions = [
+            ivec!(1, 0) + pos,
+            ivec!(1, -1) + pos,
+            ivec!(0, -1) + pos,
+            ivec!(-1, 1) + pos,
+            ivec!(-1, 0) + pos,
+            ivec!(-1, 1) + pos,
+            ivec!(0, 1) + pos,
+            ivec!(1, 1) + pos,
+        ];
+        return self
+            .tiles()
+            .filter(move |t| adjacent_positions.contains(t.pos()))
+            .into_iter();
+    }
+
+    pub fn adjacent_diagonal_mut<'a>(
+        &'a mut self,
+        pos: &IVec2,
+    ) -> impl Iterator<Item = &'a mut GridItem<T>> {
+        let adjacent_positions = [
+            ivec!(1, 0) + pos,
+            ivec!(1, -1) + pos,
+            ivec!(0, -1) + pos,
+            ivec!(-1, 1) + pos,
+            ivec!(-1, 0) + pos,
+            ivec!(-1, 1) + pos,
+            ivec!(0, 1) + pos,
+            ivec!(1, 1) + pos,
         ];
         return self
             .tiles_mut()

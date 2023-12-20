@@ -70,6 +70,14 @@ impl Add<IVec2> for IVec2 {
     }
 }
 
+impl Add<&IVec2> for IVec2 {
+    type Output = IVec2;
+
+    fn add(self, rhs: &IVec2) -> Self::Output {
+        return Self::new(self.x() + rhs.x(), self.y() + rhs.y());
+    }
+}
+
 impl AddAssign<IVec2> for IVec2 {
     fn add_assign(&mut self, rhs: IVec2) {
         self.x += rhs.x();
