@@ -5,6 +5,7 @@ use crate::{
     vector::{IVec2, Vector},
 };
 
+#[derive(Clone)]
 pub struct Grid<T> {
     size: IVec2,
     grid: Vec<GridItem<T>>,
