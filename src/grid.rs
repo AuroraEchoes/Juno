@@ -57,7 +57,7 @@ impl<T: Clone> Grid<T> {
         return self.grid.iter_mut();
     }
 
-    pub fn adjacent<'a>(&'a self, pos: &IVec2) -> impl Iterator<Item = &'a GridItem<T>> {
+    pub fn adjacent(&self, pos: &IVec2) -> impl Iterator<Item = &GridItem<T>> {
         let adjacent_positions = [
             ivec!(1, 0) + pos,
             ivec!(0, -1) + pos,
@@ -66,14 +66,10 @@ impl<T: Clone> Grid<T> {
         ];
         return self
             .tiles()
-            .filter(move |t| adjacent_positions.contains(t.pos()))
-            .into_iter();
+            .filter(move |t| adjacent_positions.contains(t.pos()));
     }
 
-    pub fn adjacent_mut<'a>(
-        &'a mut self,
-        pos: &IVec2,
-    ) -> impl Iterator<Item = &'a mut GridItem<T>> {
+    pub fn adjacent_mut(&mut self, pos: &IVec2) -> impl Iterator<Item = &mut GridItem<T>> {
         let adjacent_positions = [
             ivec!(1, 0) + pos,
             ivec!(0, -1) + pos,
@@ -82,11 +78,10 @@ impl<T: Clone> Grid<T> {
         ];
         return self
             .tiles_mut()
-            .filter(move |t| adjacent_positions.contains(t.pos()))
-            .into_iter();
+            .filter(move |t| adjacent_positions.contains(t.pos()));
     }
 
-    pub fn adjacent_diagonal<'a>(&'a self, pos: &IVec2) -> impl Iterator<Item = &'a GridItem<T>> {
+    pub fn adjacent_diagonal(&self, pos: &IVec2) -> impl Iterator<Item = &GridItem<T>> {
         let adjacent_positions = [
             ivec!(1, 0) + pos,
             ivec!(1, -1) + pos,
@@ -99,14 +94,10 @@ impl<T: Clone> Grid<T> {
         ];
         return self
             .tiles()
-            .filter(move |t| adjacent_positions.contains(t.pos()))
-            .into_iter();
+            .filter(move |t| adjacent_positions.contains(t.pos()));
     }
 
-    pub fn adjacent_diagonal_mut<'a>(
-        &'a mut self,
-        pos: &IVec2,
-    ) -> impl Iterator<Item = &'a mut GridItem<T>> {
+    pub fn adjacent_diagonal_mut(&mut self, pos: &IVec2) -> impl Iterator<Item = &mut GridItem<T>> {
         let adjacent_positions = [
             ivec!(1, 0) + pos,
             ivec!(1, -1) + pos,
@@ -119,8 +110,7 @@ impl<T: Clone> Grid<T> {
         ];
         return self
             .tiles_mut()
-            .filter(move |t| adjacent_positions.contains(t.pos()))
-            .into_iter();
+            .filter(move |t| adjacent_positions.contains(t.pos()));
     }
 }
 
