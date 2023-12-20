@@ -10,10 +10,18 @@ pub struct Grid<T> {
     grid: Vec<GridItem<T>>,
 }
 
-impl<T> Grid<T> {
+impl<T: Clone> Grid<T> {
     pub fn new(size: IVec2) -> Self {
         let grid = Vec::with_capacity((size.x() * size.y()) as usize);
         return Self { size, grid };
+    }
+
+    pub fn fill(&mut self, item: T) {
+        for y in 0..*self.height() {
+            for x in 0..*self.width() {
+                self.push(GridItem::new(ivec!(x, y), item.clone()));
+            }
+        }
     }
 
     pub fn push(&mut self, tile: GridItem<T>) {
