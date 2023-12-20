@@ -1,6 +1,9 @@
-use std::slice::Iter;
+use std::slice::{Iter, IterMut};
 
-use crate::vector::{IVec2, Vector};
+use crate::{
+    ivec,
+    vector::{IVec2, Vector},
+};
 
 pub struct Grid<T> {
     size: IVec2,
@@ -40,6 +43,60 @@ impl<T> Grid<T> {
 
     pub fn tiles(&self) -> Iter<'_, GridItem<T>> {
         return self.grid.iter();
+    }
+
+    pub fn tiles_mut(&mut self) -> IterMut<'_, GridItem<T>> {
+        return self.grid.iter_mut();
+    }
+
+    pub fn adjacent<'a>(&'a self) -> impl Iterator<Item = &'a GridItem<T>> {
+        let adjacent_positions = [ivec!(1, 0), ivec!(0, -1), ivec!(-1, 0), ivec!(0, 1)];
+        return self
+            .tiles()
+            .filter(move |t| adjacent_positions.contains(t.pos()))
+            .into_iter();
+    }
+
+    pub fn adjacent_mut<'a>(&'a mut self) -> impl Iterator<Item = &'a mut GridItem<T>> {
+        let adjacent_positions = [ivec!(1, 0), ivec!(0, -1), ivec!(-1, 0), ivec!(0, 1)];
+        return self
+            .tiles_mut()
+            .filter(move |t| adjacent_positions.contains(t.pos()))
+            .into_iter();
+    }
+
+    pub fn adjacent_diagonal<'a>(&'a self) -> impl Iterator<Item = &'a GridItem<T>> {
+        let adjacent_positions = [
+            ivec!(1, 0),
+            ivec!(1, -1),
+            ivec!(0, -1),
+            ivec!(-1, 1),
+            ivec!(-1, 0),
+            ivec!(-1, 1),
+            ivec!(0, 1),
+            ivec!(1, 1),
+        ];
+        return self
+            .tiles()
+            .filter(move |t| adjacent_positions.contains(t.pos()))
+            .into_iter();
+    }
+
+    pub fn adjacent_diagonal_mut<'a>(&'a mut self) -> impl Iterator<Item = &'a mut GridItem<T>> {
+        let adjacent_positions = [
+            ivec!(1, 0),
+            ivec!(1, -1),
+            ivec!(0, -1),
+            ivec!(-1, 1),
+            ivec!(-1, 0),
+            ivec!(-1, 1),
+            ivec!(0, 1),
+            ivec!(1, 1),
+        ];
+        return self
+            .tiles_mut()
+            .filter(move |t| adjacent_positions.contains(t.pos()))
+            .into_iter();
     }
 }
 
