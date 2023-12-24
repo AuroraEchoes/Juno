@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Div, DivAssign};
+use std::ops::{Add, AddAssign, Div, DivAssign, Sub, SubAssign};
 
 pub trait Vector {
     type Coord;
@@ -128,6 +128,44 @@ impl DivAssign<i32> for IVec2 {
     fn div_assign(&mut self, rhs: i32) {
         self.x /= rhs;
         self.y /= rhs;
+    }
+}
+
+impl Sub<IVec2> for IVec2 {
+    type Output = IVec2;
+
+    fn sub(self, rhs: IVec2) -> Self::Output {
+        return Self::new(self.x() - rhs.x(), self.y() - rhs.y());
+    }
+}
+
+impl Sub<&IVec2> for IVec2 {
+    type Output = IVec2;
+
+    fn sub(self, rhs: &IVec2) -> Self::Output {
+        return Self::new(self.x() - rhs.x(), self.y() - rhs.y());
+    }
+}
+
+impl SubAssign<IVec2> for IVec2 {
+    fn sub_assign(&mut self, rhs: IVec2) {
+        self.x -= rhs.x();
+        self.y -= rhs.y();
+    }
+}
+
+impl Sub<i32> for IVec2 {
+    type Output = IVec2;
+
+    fn sub(self, rhs: i32) -> Self::Output {
+        return Self::new(self.x() - rhs, self.y() - rhs);
+    }
+}
+
+impl SubAssign<i32> for IVec2 {
+    fn sub_assign(&mut self, rhs: i32) {
+        self.x -= rhs;
+        self.y -= rhs;
     }
 }
 
