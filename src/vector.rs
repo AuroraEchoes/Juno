@@ -1,5 +1,10 @@
 use std::ops::{Add, AddAssign, Div, DivAssign, Sub, SubAssign};
 
+pub const DOWN: IVec2 = IVec2 { x: 0, y: 1 };
+pub const LEFT: IVec2 = IVec2 { x: -1, y: 0 };
+pub const RIGHT: IVec2 = IVec2 { x: 1, y: 0 };
+pub const UP: IVec2 = IVec2 { x: 0, y: -1 };
+
 pub trait Vector {
     type Coord;
 
@@ -144,6 +149,14 @@ impl Sub<&IVec2> for IVec2 {
 
     fn sub(self, rhs: &IVec2) -> Self::Output {
         return Self::new(self.x() - rhs.x(), self.y() - rhs.y());
+    }
+}
+
+impl Sub<&IVec2> for &IVec2 {
+    type Output = IVec2;
+
+    fn sub(self, rhs: &IVec2) -> Self::Output {
+        return IVec2::new(self.x() - rhs.x(), self.y() - rhs.y());
     }
 }
 
