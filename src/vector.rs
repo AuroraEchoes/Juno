@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Div, DivAssign, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
 
 pub const DOWN: IVec2 = IVec2 { x: 0, y: 1 };
 pub const LEFT: IVec2 = IVec2 { x: -1, y: 0 };
@@ -105,6 +105,37 @@ impl AddAssign<i32> for IVec2 {
     }
 }
 
+// Multiply
+impl Mul<IVec2> for IVec2 {
+    type Output = IVec2;
+
+    fn mul(self, rhs: IVec2) -> Self::Output {
+        return Self::new(self.x() * rhs.x(), self.y() * rhs.y());
+    }
+}
+
+impl MulAssign<IVec2> for IVec2 {
+    fn mul_assign(&mut self, rhs: IVec2) {
+        self.x *= rhs.x();
+        self.y *= rhs.y();
+    }
+}
+
+impl Mul<i32> for IVec2 {
+    type Output = IVec2;
+
+    fn mul(self, rhs: i32) -> Self::Output {
+        return Self::new(self.x() * rhs, self.y() * rhs);
+    }
+}
+
+impl MulAssign<i32> for IVec2 {
+    fn mul_assign(&mut self, rhs: i32) {
+        self.x *= rhs;
+        self.y *= rhs;
+    }
+}
+
 // Divide
 impl Div<IVec2> for IVec2 {
     type Output = IVec2;
@@ -136,6 +167,7 @@ impl DivAssign<i32> for IVec2 {
     }
 }
 
+// Sub
 impl Sub<IVec2> for IVec2 {
     type Output = IVec2;
 
